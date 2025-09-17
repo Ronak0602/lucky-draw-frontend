@@ -38,9 +38,10 @@ const JoinPage = () => {
       setMessageColor("red");
       return;
     }
-
+    console.log(process.env.REACT_APP_SERVER_URL, "URL");
     try {
-      const res = await fetch('http://localhost:5000/api/luckydraw/join', {
+
+      const res = await fetch(`${process.env.REACT_APP_SERVER_URL}luckydraw/join`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
