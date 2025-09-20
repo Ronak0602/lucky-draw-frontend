@@ -39,7 +39,7 @@ const PaymentProofPage = () => {
       }
 
       if (res.ok) {
-        setMessage('Payment proof uploaded successfully!');
+        setMessage('Congrats! You joined the contest!');
       } else {
         setMessage('Error: ' + data.msg || 'Unknown error');
       }
