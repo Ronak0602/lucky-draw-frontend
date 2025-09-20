@@ -34,14 +34,15 @@ const CountdownTimer = ({ targetDate }) => {
   }
 
   return (
-    <div style={{ fontSize: "1rem", color: "#333", margin: "10px 0", textAlign: "center" }}>
-      ⏳ Winner will be declared in:{" "}
-      {timeLeft.days > 0 && `${timeLeft.days}d `}
-      {timeLeft.hours.toString().padStart(2, "0")}h :
-      {timeLeft.minutes.toString().padStart(2, "0")}m :
-      {timeLeft.seconds.toString().padStart(2, "0")}s
-    </div>
-  );
+  <div className="countdown-timer">
+    ⏳ Winner will be declared in:{" "}
+    {timeLeft.days > 0 && `${timeLeft.days}d `}
+    {timeLeft.hours.toString().padStart(2, "0")}h :
+    {timeLeft.minutes.toString().padStart(2, "0")}m :
+    {timeLeft.seconds.toString().padStart(2, "0")}s
+  </div>
+);
+
 };
 
 export default CountdownTimer;

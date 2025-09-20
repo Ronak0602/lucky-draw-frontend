@@ -4,10 +4,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  height: 120vh;
+  min-height: 100vh;
   padding: 1rem;
   padding-top: 5px;
+  padding-bottom: 30px;
   background-color: #e6e6fa;
+  box-sizing: border-box;
 }
 
 .intro-title {
@@ -43,14 +45,13 @@
 .start-button {
   padding: 8px 10px;
   font-size: 0.9rem;
-  background-color: black;
+  background-color: rgb(33, 31, 31);
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   width: 173px;
-  
-  margin-bottom: 40px; 
+  margin-bottom: 5px;
 }
 
 
@@ -59,13 +60,16 @@
     opacity: 0;
     transform: translateY(-50px);
   }
+
   60% {
     opacity: 1;
     transform: translateY(20px);
   }
+
   80% {
     transform: translateY(-10px);
   }
+
   100% {
     transform: translateY(0);
   }
@@ -85,26 +89,73 @@
 
 /* Winner comment container */
 .winner-comment-container {
-  width: 100%;                   /* Full width of the parent container */
-  overflow: hidden;              /* Hide the overflowing text */
-  display: flex;                 /* Horizontal movement */
+  width: 100%;
+  /* Full width of the parent container */
+  overflow: hidden;
+  /* Hide the overflowing text */
+  display: flex;
+  /* Horizontal movement */
   position: relative;
 }
 
-/* The text that scrolls */
+
 .winner-comment-text {
-  display: inline-block;         /* Keep it in one line */
-  white-space: nowrap;           /* No line breaks allowed */
-  animation: scroll-left-to-right 10s linear infinite; /* Continuous scroll */
-  color: green; 
+  margin: 0 19px;
+  line-height: 1.6;
+  display: block;
+  display: inline-block;
+  white-space: nowrap;
+  animation: scroll-left-to-right 10s linear infinite;
+  color: green;
 }
 
 /* Define the animation for the text */
 @keyframes scroll-left-to-right {
   0% {
-    transform: translateX(100%);  /* Start from the right, outside of the container */
+    transform: translateX(100%);
+    /* Start from the right, outside of the container */
   }
+
   100% {
-    transform: translateX(-100%); /* End at the left, completely offscreen */
+    transform: translateX(-100%);
+    /* End at the left, completely offscreen */
   }
+}
+
+.countdown-timer {
+  white-space: nowrap;
+  /* Prevent wrapping */
+  display: inline-block;
+  font-size: 0.2rem;
+  /* Required for nowrap to work */
+  font-size: 1.2rem;
+  color: #071e22;
+  font-weight: bold;
+  text-align: center;
+  /* Optional: scroll if too long */
+}
+
+.payment-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* QR, button aur inputs ke beech spacing */
+  padding: 2rem;
+}
+
+.payment-container img {
+  display: block;      /* image ko block bana do */
+  margin: 0 auto 1.5rem auto; /* top 0, bottom 1.5rem, left-right auto for centering */
+}
+
+.payment-container a button {
+  margin-bottom: 2rem;  /* button ke neeche extra space */
+}
+
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem; /* file button aur file name ke beech chhota gap */
+  margin-top: 0; /* yaha negative margin mat do */
 }
