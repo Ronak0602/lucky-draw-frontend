@@ -28,11 +28,12 @@
 }
 
 .sub-text {
-  font-size: 0.9rem;
-  color: #555;
+  font-size: 1rem;
+  color: black;
   margin-bottom: 30px;
-  max-width: 90vw;
+  max-width: 70vw;
   text-align: center;
+  margin-left: 90px;
 }
 
 .winners-section {
@@ -48,7 +49,8 @@
   border-radius: 5px;
   cursor: pointer;
   width: 173px;
-  margin-top: -5px;
+  
+  margin-bottom: 40px; 
 }
 
 
@@ -73,9 +75,6 @@
   animation: bounceIn 0.8s ease forwards;
 }
 
-
-
-
 .highlight {
   font-size: 1.1rem;
   color: #d9534f;
@@ -84,3 +83,28 @@
   text-align: center;
 }
 
+/* Winner comment container */
+.winner-comment-container {
+  width: 100%;                   /* Full width of the parent container */
+  overflow: hidden;              /* Hide the overflowing text */
+  display: flex;                 /* Horizontal movement */
+  position: relative;
+}
+
+/* The text that scrolls */
+.winner-comment-text {
+  display: inline-block;         /* Keep it in one line */
+  white-space: nowrap;           /* No line breaks allowed */
+  animation: scroll-left-to-right 10s linear infinite; /* Continuous scroll */
+  color: green; 
+}
+
+/* Define the animation for the text */
+@keyframes scroll-left-to-right {
+  0% {
+    transform: translateX(100%);  /* Start from the right, outside of the container */
+  }
+  100% {
+    transform: translateX(-100%); /* End at the left, completely offscreen */
+  }
+}

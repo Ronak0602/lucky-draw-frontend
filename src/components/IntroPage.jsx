@@ -9,13 +9,11 @@ const previousWinners = [
     { name: "Kano", comment: "Amazing prizes and easy to join." },
     { name: "kajal", comment: "Can’t wait to participate again!" },
     { name: "Aman", comment: "Thought it was fake, but I actually won 10,000 cash!" },
-    { name: "Priya", comment: "Loved the whole experience, super smooth!" },
     { name: "Suresh", comment: "₹10,000  mil gaya, bhai mene kabhi socha nai tha ,mast tha!" },
     { name: "Anjali", comment: "Such a cool surprise! Didn't expect to win." },
     { name: "Vikas", comment: "This is the most fun I’ve had online in a while!" },
     { name: "Reena", comment: "Joined for fun, ended up winning a smartwatch!" },
     { name: "Nikhil", comment: "Told all my friends about it after I won ₹10,000!" },
-    { name: "Meena", comment: "Trustworthy and exciting — love it!" },
     { name: "Faizan", comment: "First time trying my luck and it actually worked!" }
 ];
 
@@ -53,9 +51,11 @@ const IntroPage = () => {
             <div className="winners-section">
                 <h2 className="sub-text">What Our Previous Winners Say:</h2>
                 {previousWinners.map((winner, index) => (
-                    <p key={index} className="intro-text">
+                    <div key={index} className="winner-comment-container">
+                    <p className="winner-comment-text">
                         <strong>{winner.name}:</strong> "{winner.comment}"
                     </p>
+                    </div>
                 ))}
             </div>
 
