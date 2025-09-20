@@ -35,7 +35,7 @@ const PaymentProofPage = () => {
       try {
         data = JSON.parse(text); // JSON parse try
       } catch {
-        data = { msg: text }; // agar parse fail ho, text ko msg me daal do
+        data = { msg: text }; 
       }
 
       if (res.ok) {
