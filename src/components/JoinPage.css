@@ -1,6 +1,6 @@
 body {
   font-family: Poppins, sans-serif;
-  background: linear-gradient(135deg, #5c6e7d 0%, #77825e 100%);
+  background: linear-gradient(135deg, #e6e6fa 0%, #e6e6fa 100%);
   background-attachment: fixed;
   color: #fff;
   padding: 40px 20px;
@@ -29,13 +29,13 @@ h1 {
 }
 
 form {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(233, 225, 225, 0.95);
   padding: 20px 20px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   width: 80%;
   max-width: 360px;
-  color: #333;
+  color: #f8f2f2;
   z-index: 1;
 }
 
@@ -75,11 +75,11 @@ button {
   margin-top: 20px;
   background-color: #041424;
   color: #fff;
-  padding: 14px 20px;
+  padding: 7px 30px;
   border: none;
   border-radius: 10px;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }

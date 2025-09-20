@@ -1,0 +1,71 @@
+
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CountdownTimer from "../components/CountdownTimer";
+import "./IntroPage.css";
+
+const previousWinners = [
+    { name: "RameshBhai", comment: "I won ₹10,000 in the lucky draw — unbelievable!" },
+    { name: "Kano", comment: "Amazing prizes and easy to join." },
+    { name: "kajal", comment: "Can’t wait to participate again!" },
+    { name: "Aman", comment: "Thought it was fake, but I actually won 10,000 cash!" },
+    { name: "Priya", comment: "Loved the whole experience, super smooth!" },
+    { name: "Suresh", comment: "₹10,000  mil gaya, bhai mene kabhi socha nai tha ,mast tha!" },
+    { name: "Anjali", comment: "Such a cool surprise! Didn't expect to win." },
+    { name: "Vikas", comment: "This is the most fun I’ve had online in a while!" },
+    { name: "Reena", comment: "Joined for fun, ended up winning a smartwatch!" },
+    { name: "Nikhil", comment: "Told all my friends about it after I won ₹10,000!" },
+    { name: "Meena", comment: "Trustworthy and exciting — love it!" },
+    { name: "Faizan", comment: "First time trying my luck and it actually worked!" }
+];
+
+const winnerDate = "2025-09-25T18:00:00";
+
+const IntroPage = () => {
+    const navigate = useNavigate();
+    const [animate, setAnimate] = useState(false);
+
+    useEffect(() => {
+        setAnimate(true);
+    }, []);
+
+    const handleStart = () => {
+        navigate("/join");
+    };
+
+    return (
+        <div className={`intro-container ${animate ? "bounce-in" : ""}`}>
+            <h1 className="intro-title">🎉 Hurray! Big Offer Just for You! 🎁</h1>
+
+            <p className="highlight bounce-in">
+                🎁 First lucky winner will get ₹10,000 cash prize! 🤑
+            </p>
+
+            <CountdownTimer targetDate={winnerDate} />
+
+            <p className="intro-text">
+                Welcome to the Lucky Draw! 🎲<br />
+                One lucky winner will take home ₹10,000 in cash! Will it be you? Join now! 🤑🎉<br />
+                Don't miss this limited-time offer. 🎉 <br />
+                Ready to win amazing prizes? Join our lucky draw and stand a chance to win exciting gifts! 🎉
+            </p>
+
+            <div className="winners-section">
+                <h2 className="sub-text">What Our Previous Winners Say:</h2>
+                {previousWinners.map((winner, index) => (
+                    <p key={index} className="intro-text">
+                        <strong>{winner.name}:</strong> "{winner.comment}"
+                    </p>
+                ))}
+            </div>
+
+            <button className="start-button" onClick={handleStart}>
+                Start Your Journey 🚀
+            </button>
+        </div>
+    );
+};
+
+
+
+export default IntroPage;

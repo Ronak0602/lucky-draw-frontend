@@ -1,0 +1,86 @@
+/* styles.css ya inline style me daal sakte ho */
+.intro-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 120vh;
+  padding: 1rem;
+  padding-top: 5px;
+  background-color: #e6e6fa;
+}
+
+.intro-title {
+  font-size: 2rem;
+  color: black;
+  margin-bottom: 10px;
+  text-align: center;
+  margin-top: 0;
+}
+
+.intro-text {
+  font-size: 1rem;
+  text-align: center;
+  margin: 20px 0;
+  color: green;
+  line-height: 1.5;
+  max-width: 90vw;
+}
+
+.sub-text {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 30px;
+  max-width: 90vw;
+  text-align: center;
+}
+
+.winners-section {
+  text-align: center;
+}
+
+.start-button {
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  background-color: black;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 173px;
+  margin-top: -5px;
+}
+
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(20px);
+  }
+  80% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.bounce-in {
+  animation: bounceIn 0.8s ease forwards;
+}
+
+
+
+
+.highlight {
+  font-size: 1.1rem;
+  color: #d9534f;
+  font-weight: bold;
+  margin: 10px 0;
+  text-align: center;
+}
+

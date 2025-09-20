@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './JoinPage.css';
 
+
 const JoinPage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -52,16 +55,14 @@ const JoinPage = () => {
       const data = await res.json();
 
       if (res.ok) {
-        setMessageColor("green");
-        setMessage("Congrats! You joined the lucky draw.");
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          gender: '',
-          address: '',
-          terms: false,
-        });
+        const userId = data?.user?._id;
+
+        if (userId) {
+          navigate(`/payment/${userId}`);  // ✅ Go to payment page
+        } else {
+          setMessageColor("red");
+          setMessage("User ID not received from server.");
+        }
       } else {
         setMessageColor("red");
         setMessage(data.message || "Error joining.");
@@ -181,12 +182,12 @@ const JoinPage = () => {
                 {message}
               </p>
             )}
-        </div>
+          </div>
 
 
 
 
-        
+
         </div>
       </div>
     </div>
