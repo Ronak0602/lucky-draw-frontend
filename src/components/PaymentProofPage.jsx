@@ -1,114 +1,94 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import "./IntroPage.css";
 
 const PaymentProofPage = () => {
-  const { userId } = useParams();  // Get userId from URL params
-  const [utrId, setUtrId] = useState('');
-  const [message, setMessage] = useState('');
+  const { userId } = useParams();
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-
-  // const handleUpload = async () => {
-  //   if (!file) {
-  //     setMessage('Please select a file to upload.');
-  //     return;
-  //   }
-
-  //   const formData = new FormData();
-  //   formData.append('paymentProof', file);
-
-  //   // Use the environment variable for the production URL
-  //   const serverUrl = process.env.REACT_APP_SERVER_URL
-
-  //   try {
-  //     const res = await fetch(`${serverUrl}payment/upload-proof/${userId}`, {
-  //       method: 'POST',
-  //       body: formData,
-  //     });
-
-  //     const text = await res.text(); // pehle response as text lo
-  //     let data;
-
-  //     try {
-  //       data = JSON.parse(text); // JSON parse try
-  //     } catch {
-  //       data = { msg: text }; 
-  //     }
-
-  //     if (res.ok) {
-  //       setMessage('Congrats! You joined the contest!');
-  //     } else {
-  //       setMessage('Error: ' + data.msg || 'Unknown error');
-  //     }
-  //   } catch (err) {
-  //     setMessage('Error: ' + err.message || 'Something went wrong');
-  //   }
-  // };
-
-  const handleConfirm = async () => {
-    if (!utrId.trim()) {
-      setMessage('Please enter a valid UTR ID.');
-      return;
-    }
+  const handlePayment = async () => {
+    setLoading(true);
+    setMessage("");
 
     const serverUrl = process.env.REACT_APP_SERVER_URL;
 
     try {
-      const res = await fetch(`${serverUrl}payment/confirm-utr/${userId}`, {
-        method: 'POST',
+      // 1. Create order on backend
+      const orderRes = await fetch(`${serverUrl}payment/create-order`, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ utrId }),
+        body: JSON.stringify({ amount: 1 }), // ₹1 payment
       });
 
-      const data = await res.json();
+      const orderData = await orderRes.json();
 
-      if (res.ok) {
-        setMessage(data.msg);
-      } else {
-        setMessage('Error: ' + (data.msg || 'Unknown error'));
+      if (!orderRes.ok) {
+        setLoading(false);
+        setMessage(orderData.msg || "Failed to create order");
+        return;
       }
+
+      const { order } = orderData;
+      console.log("Razorpay Key:", process.env.REACT_APP_RAZORPAY_KEY_ID);
+      // 2. Setup Razorpay options
+      const options = {
+        key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+        amount: order.amount,
+        currency: order.currency,
+        order_id: order.id,
+        name: "Lucky Draw Contest",
+        description: "Entry fee payment",
+        handler: async function (response) {
+          // 3. Verify payment on backend
+          try {
+            const verifyRes = await fetch(`${serverUrl}payment/verify`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                userId: userId,
+              }),
+            });
+
+            const verifyData = await verifyRes.json();
+
+            if (verifyRes.ok) {
+              setMessage("Payment Successful! You have joined the contest.");
+            } else {
+              setMessage("Payment verification failed: " + (verifyData.msg || ""));
+            }
+          } catch (err) {
+            setMessage("Verification error: " + err.message);
+          }
+        },
+      };
+
+      setLoading(false);
+      // 4. Open Razorpay Checkout
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     } catch (err) {
-      setMessage('Error: ' + err.message || 'Something went wrong');
+      setLoading(false);
+      setMessage("Error: " + err.message);
     }
   };
 
-
   return (
     <div className="payment-container">
-      <h2>Scan this QR to pay ₹1</h2>
+      <h2>Pay ₹1 to join the Lucky Draw</h2>
 
-      <img src="/QR_code.jpg" alt="QR Code" width="200" style={{ marginBottom: '-0.35rem' }} />
-
-      <a href="upi://pay?pa=sumit.verma0991-3@oksbi&pn=MyShop&tn=Payment for test&am=1&cu=INR">
-        <button className="start-button">Pay ₹1</button>
-      </a>
-
-      <div style={{ marginTop: '2rem' }}>
-        <label htmlFor="utrInput">Enter your UTR ID:</label>
-        <input
-          id="utrInput"
-          type="text"
-          value={utrId}
-          onChange={(e) => setUtrId(e.target.value)}
-          placeholder="Enter UTR ID here"
-          style={{ marginLeft: '10px', padding: '5px', width: '250px' }}
-        />
-
-      </div>
-
-      <button
-        onClick={handleConfirm}
-        className="start-button"
-        style={{ marginTop: '1rem' }}
-      >
-        Confirm
+      <button onClick={handlePayment} disabled={loading} className="start-button">
+        {loading ? "Processing..." : "Pay ₹1"}
       </button>
 
-
-
-      {message && <p style={{ color: message.includes('Error') ? 'red' : 'green' }}>{message}</p>}
+      {message && <p style={{ color: message.includes("error") ? "red" : "green" }}>{message}</p>}
     </div>
   );
 };
