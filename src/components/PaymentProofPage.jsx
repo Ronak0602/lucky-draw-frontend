@@ -65,10 +65,10 @@ const PaymentProofPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId, // Ye userId pass karna hai jisse payment ka record update ho
+          userId,
           paymentStatus: "success",
-          transactionId: order_id, // order id ya transaction id
-          paymentProof: "" // agar proof image ya koi file hai toh
+          transactionId: order_id, 
+          paymentProof: ""
         }),
       });
 
