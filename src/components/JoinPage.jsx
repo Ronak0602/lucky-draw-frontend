@@ -60,7 +60,10 @@ const JoinPage = () => {
 
         if (userId) {
           navigate(`/payment/${userId}`, {
-            state: { phone: formData.phone, email: formData.email }  
+            state: { 
+          phone: formData.phone,
+          name:formData.name, 
+          email: formData.email }  
           });
         } else {
           setMessageColor("red");

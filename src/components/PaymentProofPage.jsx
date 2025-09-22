@@ -5,7 +5,7 @@ import "./IntroPage.css";
 const PaymentProofPage = () => {
   // const { userId } = useParams();
   const location = useLocation();
-  const { phone, email } = location.state || {};
+  const { phone, email, name } = location.state || {};
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -27,6 +27,7 @@ const PaymentProofPage = () => {
         body: JSON.stringify({
           order_id,
           order_amount: 20, // ₹1 payment
+          customer_name: name,
           customer_phone: phone,
           customer_email: email,
         }),
