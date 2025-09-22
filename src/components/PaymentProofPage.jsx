@@ -5,7 +5,7 @@ import "./IntroPage.css";
 const PaymentProofPage = () => {
   // const { userId } = useParams();
   const location = useLocation();
-  const { phone, email, name } = location.state || {};
+  const { phone, email, name, userId  } = location.state || {};
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -55,6 +55,29 @@ const PaymentProofPage = () => {
       script.onload = () => {
         const cashfree = new window.Cashfree(paymentSessionId);
         cashfree.redirect();
+
+
+        setTimeout(async () => {
+    try {
+      const verifyRes = await fetch(`${serverUrl}payment/verify-payment`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId, // Ye userId pass karna hai jisse payment ka record update ho
+          paymentStatus: "success",
+          transactionId: order_id, // order id ya transaction id
+          paymentProof: "" // agar proof image ya koi file hai toh
+        }),
+      });
+
+      const verifyData = await verifyRes.json();
+      console.log("✅ Payment Verified:", verifyData);
+    } catch (verifyError) {
+      console.error(" Error verifying payment:", verifyError.message);
+    }
+  }, 5000); 
       };
       document.body.appendChild(script);
 
@@ -64,6 +87,8 @@ const PaymentProofPage = () => {
       setMessage("Error: " + err.message);
     }
   };
+
+  
 
   return (
     <div className="payment-container">

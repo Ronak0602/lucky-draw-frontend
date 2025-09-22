@@ -75,7 +75,9 @@ const JoinPage = () => {
             state: { 
           phone: formData.phone,
           name:formData.name, 
-          email: formData.email }  
+          email: formData.email,
+          userId: userId
+          }  
           });
         } else {
           setMessageColor("red");
