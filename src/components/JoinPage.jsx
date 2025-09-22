@@ -154,6 +154,8 @@ const JoinPage = () => {
                 onChange={handleChange}
                 required
               />
+
+              
               <label htmlFor="female">Female</label>
 
               <input
