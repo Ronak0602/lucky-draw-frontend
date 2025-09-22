@@ -13,67 +13,44 @@ const PaymentProofPage = () => {
 
     const serverUrl = process.env.REACT_APP_SERVER_URL;
 
+    const order_id = "order_" + Date.now();
+
     try {
-      // 1. Create order on backend
-      const orderRes = await fetch(`${serverUrl}payment/create-order`, {
+      // 1. Create Cashfree order on backend
+      const res = await fetch(`${serverUrl}payment/create-cashfree-order`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ amount: 1 }), // ₹1 payment
+        body: JSON.stringify({
+          order_id,
+          order_amount: 1, // ₹1 payment
+          customer_name: "Lucky Draw User",
+          customer_email: `user${userId}@example.com`,
+          customer_phone: "9999999999", // static/dummy or from user
+        }),
       });
 
-      const orderData = await orderRes.json();
+      const data = await res.json();
 
-      if (!orderRes.ok) {
+      if (!res.ok) {
         setLoading(false);
-        setMessage(orderData.msg || "Failed to create order");
+        setMessage(data.error || "Failed to create Cashfree order");
         return;
       }
 
-      const { order } = orderData;
-      console.log("Razorpay Key:", process.env.REACT_APP_RAZORPAY_KEY_ID);
-      // 2. Setup Razorpay options
-      const options = {
-        key: process.env.REACT_APP_RAZORPAY_KEY_ID,
-        amount: order.amount,
-        currency: order.currency,
-        order_id: order.id,
-        name: "Lucky Draw Contest",
-        description: "Entry fee payment",
-        handler: async function (response) {
-          // 3. Verify payment on backend
-          try {
-            const verifyRes = await fetch(`${serverUrl}payment/verify`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
-                userId: userId,
-              }),
-            });
+      const paymentSessionId = data.payment_session_id;
 
-            const verifyData = await verifyRes.json();
-
-            if (verifyRes.ok) {
-              setMessage("Payment Successful! You have joined the contest.");
-            } else {
-              setMessage("Payment verification failed: " + (verifyData.msg || ""));
-            }
-          } catch (err) {
-            setMessage("Verification error: " + err.message);
-          }
-        },
+      // 2. Load Cashfree SDK
+      const script = document.createElement("script");
+      script.src = "https://sdk.cashfree.com/js/ui/2.0.0/cashfree.prod.js";
+      script.onload = () => {
+        const cashfree = new window.Cashfree(paymentSessionId);
+        cashfree.redirect();
       };
+      document.body.appendChild(script);
 
       setLoading(false);
-      // 4. Open Razorpay Checkout
-      const rzp = new window.Razorpay(options);
-      rzp.open();
     } catch (err) {
       setLoading(false);
       setMessage("Error: " + err.message);
@@ -88,7 +65,7 @@ const PaymentProofPage = () => {
         {loading ? "Processing..." : "Pay ₹1"}
       </button>
 
-      {message && <p style={{ color: message.includes("error") ? "red" : "green" }}>{message}</p>}
+      {message && <p style={{ color: "red" }}>{message}</p>}
     </div>
   );
 };
