@@ -50,9 +50,21 @@ const JoinPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
-      });
-
+        body: JSON.stringify({
+        name,
+        email,
+        phone,
+        gender,
+        address,
+        terms,
+        customer_details: {   
+          customer_id: email.replace(/[^a-zA-Z0-9_-]/g, "_"), 
+          customer_email: email,
+          customer_name: name,
+          customer_phone: phone,
+        }
+      }),
+    });
       const data = await res.json();
 
       if (res.ok) {
