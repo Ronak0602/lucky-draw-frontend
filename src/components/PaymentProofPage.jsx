@@ -26,7 +26,7 @@ const PaymentProofPage = () => {
         },
         body: JSON.stringify({
           order_id,
-          order_amount: 20, // ₹1 payment
+          order_amount: 1, // ₹1 payment
           customer_name: name,
           customer_phone: phone,
           customer_email: email,
