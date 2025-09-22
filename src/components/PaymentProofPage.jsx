@@ -17,6 +17,8 @@ const PaymentProofPage = () => {
 
     const order_id = "order_" + Date.now();
 
+    const customer_id = email.replace(/[^a-zA-Z0-9_-]/g, "_");
+
     try {
       // 1. Create Cashfree order on backend
       const res = await fetch(`${serverUrl}payment/create-cashfree-order`, {
@@ -26,10 +28,14 @@ const PaymentProofPage = () => {
         },
         body: JSON.stringify({
           order_id,
-          order_amount: 1, // ₹1 payment
-          customer_name: name,
-          customer_phone: phone,
-          customer_email: email,
+          order_amount: "1",
+          order_currency: "INR",
+          customer_details: {
+            customer_id,
+            customer_name: name,
+            customer_email: email,
+            customer_phone: phone,
+          }
         }),
       });
 
