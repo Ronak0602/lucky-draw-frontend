@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "./IntroPage.css";
 
 const PaymentProofPage = () => {
-  const { userId } = useParams();
+  // const { userId } = useParams();
+  const location = useLocation();
+  const { phone, email } = location.state || {};
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -25,8 +27,8 @@ const PaymentProofPage = () => {
         body: JSON.stringify({
           order_id,
           order_amount: 20, // ₹1 payment
-         
-          customer_email: `user${userId}@example.com`,
+          customer_phone: phone,
+          customer_email: email,
         }),
       });
 

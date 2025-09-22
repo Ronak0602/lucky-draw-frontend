@@ -36,6 +36,7 @@ const JoinPage = () => {
       return;
     }
 
+
     if (!name || !email || !gender || !address || !terms) {
       setMessage("Please fill all fields.");
       setMessageColor("red");
@@ -58,7 +59,9 @@ const JoinPage = () => {
         const userId = data?.user?._id;
 
         if (userId) {
-          navigate(`/payment/${userId}`);  // ✅ Go to payment page
+          navigate(`/payment/${userId}`, {
+            state: { phone: formData.phone, email: formData.email }  
+          });
         } else {
           setMessageColor("red");
           setMessage("User ID not received from server.");
