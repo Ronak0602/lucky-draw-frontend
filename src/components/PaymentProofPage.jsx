@@ -98,22 +98,28 @@ const PaymentProofPage = () => {
       <button onClick={handlePayment} disabled={loading} className="start-button">
         {loading ? "Processing..." : "Pay ₹1"}
       </button>
-
-      {/* ✅ WhatsApp Share Button */}
-      <a
-        href={`https://wa.me/?text=${encodeURIComponent(
-          `🎉 I'm joining this Lucky Draw by paying just ₹1! & i won 10,000 cash — join using this link: ${referralLink}`
-        )}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img
-          src="https://img.icons8.com/color/48/000000/whatsapp--v1.png"
-          alt="Share on WhatsApp"
-          style={{ width: "40px", height: "40px", marginTop: "20px", cursor: "pointer" }}
-        />
-      </a>
-
+      {/* ✅ WhatsApp Share Button with Text */}
+      <div style={{ marginTop: "20px", textAlign: "center" }}>
+        <a
+          href={`https://wa.me/?text=${encodeURIComponent(
+            `🎉 I'm joining this Lucky Draw by paying just ₹1! & I won ₹10,000 cash — join using this link: ${referralLink}`
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <img
+              src="https://img.icons8.com/color/48/000000/whatsapp--v1.png"
+              alt="Share on WhatsApp"
+              style={{ width: "40px", height: "40px", cursor: "pointer" }}
+            />
+            <span style={{ marginTop: "5px", fontWeight: "bold", fontSize: "14px" }}>
+              Share via WhatsApp
+            </span>
+          </div>
+        </a>
+      </div>
 
       {message && <p style={{ color: "red" }}>{message}</p>}
     </div>
