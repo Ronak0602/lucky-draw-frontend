@@ -5,7 +5,7 @@ import "./IntroPage.css";
 const PaymentProofPage = () => {
   // const { userId } = useParams();
   const location = useLocation();
-  const { phone, email, name, userId  } = location.state || {};
+  const { phone, email, name, userId } = location.state || {};
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -58,26 +58,26 @@ const PaymentProofPage = () => {
 
 
         setTimeout(async () => {
-    try {
-      const verifyRes = await fetch(`${serverUrl}payment/verify-payment`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId,
-          paymentStatus: "success",
-          transactionId: order_id, 
-          paymentProof: ""
-        }),
-      });
+          try {
+            const verifyRes = await fetch(`${serverUrl}payment/verify-payment`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userId,
+                paymentStatus: "success",
+                transactionId: order_id,
+                paymentProof: ""
+              }),
+            });
 
-      const verifyData = await verifyRes.json();
-      console.log("✅ Payment Verified:", verifyData);
-    } catch (verifyError) {
-      console.error(" Error verifying payment:", verifyError.message);
-    }
-  }, 5000); 
+            const verifyData = await verifyRes.json();
+            console.log("✅ Payment Verified:", verifyData);
+          } catch (verifyError) {
+            console.error(" Error verifying payment:", verifyError.message);
+          }
+        }, 5000);
       };
       document.body.appendChild(script);
 
@@ -88,11 +88,11 @@ const PaymentProofPage = () => {
     }
   };
 
-  
+
 
   return (
     <div className="payment-container">
-      <h2>Pay ₹1 to join the Lucky Draw</h2>
+      <h2 className="payment-heading">Pay ₹1 to join the Lucky Draw</h2>
 
       <button onClick={handlePayment} disabled={loading} className="start-button">
         {loading ? "Processing..." : "Pay ₹1"}

@@ -159,3 +159,8 @@
   gap: 0.25rem; /* file button aur file name ke beech chhota gap */
   margin-top: 0; /* yaha negative margin mat do */
 }
+
+.payment-heading {
+  font-weight: bold;
+  color: black;
+}
