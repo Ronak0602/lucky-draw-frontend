@@ -6,6 +6,7 @@ const PaymentProofPage = () => {
   // const { userId } = useParams();
   const location = useLocation();
   const { phone, email, name, userId } = location.state || {};
+  const referralLink = `http://lucky-draw-frontend-gold.vercel.app/referral?ref=${userId}`;
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -97,6 +98,22 @@ const PaymentProofPage = () => {
       <button onClick={handlePayment} disabled={loading} className="start-button">
         {loading ? "Processing..." : "Pay ₹1"}
       </button>
+
+      {/* ✅ WhatsApp Share Button */}
+      <a
+        href={`https://wa.me/?text=${encodeURIComponent(
+          `🎉 I'm joining this Lucky Draw by paying just ₹1! & i won 10,000 cash — join using this link: ${referralLink}`
+        )}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://img.icons8.com/color/48/000000/whatsapp--v1.png"
+          alt="Share on WhatsApp"
+          style={{ width: "40px", height: "40px", marginTop: "20px", cursor: "pointer" }}
+        />
+      </a>
+
 
       {message && <p style={{ color: "red" }}>{message}</p>}
     </div>
