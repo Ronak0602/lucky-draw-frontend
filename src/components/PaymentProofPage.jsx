@@ -57,7 +57,6 @@ const PaymentProofPage = () => {
         const cashfree = new window.Cashfree(paymentSessionId);
         cashfree.redirect();
 
-
         setTimeout(async () => {
           try {
             const verifyRes = await fetch(`${serverUrl}payment/verify-payment`, {
@@ -68,7 +67,7 @@ const PaymentProofPage = () => {
               body: JSON.stringify({
                 userId,
                 paymentStatus: "success",
-                transactionId: order_id,
+                transactionId: data.order ? data.order.order_id : order_id,
                 paymentProof: ""
               }),
             });
@@ -76,20 +75,20 @@ const PaymentProofPage = () => {
             const verifyData = await verifyRes.json();
             console.log("✅ Payment Verified:", verifyData);
           } catch (verifyError) {
-            console.error(" Error verifying payment:", verifyError.message);
+            console.error("Error verifying payment:", verifyError.message);
           }
         }, 5000);
       };
+
       document.body.appendChild(script);
 
       setLoading(false);
+
     } catch (err) {
       setLoading(false);
       setMessage("Error: " + err.message);
     }
   };
-
-
 
   return (
     <div className="payment-container">
