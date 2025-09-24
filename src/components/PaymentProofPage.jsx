@@ -29,7 +29,7 @@ const PaymentProofPage = () => {
         },
         body: JSON.stringify({
           order_id,
-          order_amount: "1",
+          order_amount: "5",
           order_currency: "INR",
           customer_details: {
             customer_id,
@@ -92,16 +92,16 @@ const PaymentProofPage = () => {
 
   return (
     <div className="payment-container">
-      <h2 className="payment-heading">Pay ₹1 to join the Lucky Draw</h2>
+      <h2 className="payment-heading">Pay ₹5 to join the Lucky Draw</h2>
 
       <button onClick={handlePayment} disabled={loading} className="start-button">
-        {loading ? "Processing..." : "Pay ₹1"}
+        {loading ? "Processing..." : "Pay ₹5"}
       </button>
       {/* ✅ WhatsApp Share Button with Text */}
       <div style={{ marginTop: "20px", textAlign: "center" }}>
         <a
           href={`https://wa.me/?text=${encodeURIComponent(
-            `🎉 I'm joining this Lucky Draw by paying just ₹1! & I won ₹10,000 cash — join using this link: ${referralLink}`
+            `🎉 I'm joining this Lucky Draw by paying just ₹5! & I won ₹10,000 cash — join using this link: ${referralLink}`
           )}`}
           target="_blank"
           rel="noopener noreferrer"
