@@ -17,7 +17,7 @@ const previousWinners = [
     { name: "Faizan", comment: "First time trying my luck and it actually worked!" }
 ];
 
-const winnerDate = "2025-10-05T18:00:00";
+const winnerDate = "2025-11-05T18:00:00";
 
 const IntroPage = () => {
     const navigate = useNavigate();
