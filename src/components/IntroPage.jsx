@@ -6,7 +6,7 @@ import "./IntroPage.css";
 
 const previousWinners = [
     { name: "RameshBhai", comment: "I won ₹10,000 in the lucky draw — unbelievable!" },
-    { name: "Kano", comment: "Amazing prizes and easy to join." },
+    { name: "Kano", comment: "Amazing." },
     { name: "काजल", comment: "फिर से भाग लेने का इंतजार नहीं कर सकती!" },
     { name: "Aman", comment: "Thought it was fake, but I actually won 10,000 cash!" },
     { name: "સુરેશ", comment: "₹10,000 મળી ગયું, ભાઈ મેં ક્યારેય વિચાર્યું નહોતું, મજાનું હતું!" },
