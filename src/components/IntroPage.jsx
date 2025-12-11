@@ -12,7 +12,7 @@ const previousWinners = [
     { name: "સુરેશ", comment: "₹10,000 મળી ગયું, ભાઈ મેં ક્યારેય વિચાર્યું નહોતું, મજાનું હતું!" },
     { name: "Anjali", comment: "Such a cool surprise! Didn't expect to win." },
     { name: "Vikas", comment: "This is the most fun I’ve had online in a while!" },
-    { name: "Reena", comment: "Joined for fun, ended up winning a smartwatch!" },
+    { name: "Reena", comment: "Joined for fun, ended up winning a 10k!" },
     { name: "Nikhil", comment: "Told all my friends about it after I won ₹10,000!" },
     { name: "Faizan", comment: "First time trying my luck and it actually worked!" }
 ];
